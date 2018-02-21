@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+    body,
+    button {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      perspective: 800px;
+    }
+
+    .card {
+      height: 60vh;
+      border: 1px solid #bbb;
+      border-radius: 20px;
+      width: 90%;
+      margin: 20vh auto;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 3s;
+    }
+
+    @media (min-width: 400px) {
+      .card {
+        width: 50%;
+
+      }
+    }
+
+    .card--flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card__face {
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      /*cały ten zestaw od absolute oznacza dokładnie wypełnij element zawierający */
+      backface-visibility: hidden;
+      */
+    }
+
+    .card__word {
+      text-align: center;
+
+    }
+
+    .card__upper,
+    .card__lower {
+      box-sizing: border-box;
+      height: 50%;
+      /* height: 50%; - tylko że box model zakłada, że 50% tyczy się contentu. dlatego potrzebujemy box sizing border box - przeglądarka zaczyna odnosić się do contentu i padding i border*/
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card__lower {
+      border-top: 1px dashed #ddd;
+      text-align: center;
+    }
+
+    .card__face--back {
+      transform: rotateY(180deg);
+    }
+
+    #card_answer {
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+  <article id="card" class="card">
+    <div class="card__face">
+      <section class="card__upper">
+        <div class="card__word">
+          Słowo
+        </div>
+      </section>
+      <section class="card__lower">
+        <button id="btn_check" class="card__check">Sprawdź</button>
+      </section>
+    </div>
+
+    <div class="card__face card__face--back">
+      <section class="card__upper">
+        <div class="card__word">
+          Słowo
+        </div>
+      </section>
+      <section class="card__lower">
+        <div id="card_answer" class="card__word">
+          Word
+        </div>
+      </section>
+    </div>
+  </article>
+  <script>
+    document.getElementById('btn_check').addEventListener('click', function() {
+      document.getElementById('card').className = 'card card--flipped';
+    })
+    document.getElementById('card_answer').addEventListener('dblclick', function() {
+      document.getElementById('card').className = 'card';
+    })
+  </script>
+
+</body>
+
+</html>
